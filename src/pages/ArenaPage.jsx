@@ -23,10 +23,15 @@ const ArenaPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const loadBattles = () => {
-    const allBattles = getAllBattles()
-    // Show only waiting and active battles
-    setBattles(allBattles.filter(b => b.status === 'waiting' || b.status === 'active'))
+  const loadBattles = async () => {
+    try {
+      const allBattles = await getAllBattles()
+      // Show only waiting and active battles
+      setBattles(allBattles.filter(b => b.status === 'waiting' || b.status === 'active'))
+    } catch (error) {
+      console.error('Error loading battles:', error)
+      setBattles([])
+    }
   }
 
   const handleCreateBattle = async (wager, fighter) => {

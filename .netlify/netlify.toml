@@ -1,16 +1,15 @@
+functionsDirectory = "/home/ubuntu/memearena-website/netlify/functions"
+functionsDirectoryOrigin = "default"
 redirectsOrigin = "config"
 plugins = []
 headers = []
-
-[functions]
-
-[functions."*"]
 
 [build]
 publish = "/home/ubuntu/memearena-website/dist"
 publishOrigin = "config"
 commandOrigin = "config"
 command = "pnpm install && pnpm run build"
+functions = "/home/ubuntu/memearena-website/netlify/functions"
 
 [build.environment]
 NODE_VERSION = "22"
@@ -26,6 +25,10 @@ NODE_VERSION = "22"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions."*"]
 
 [[redirects]]
 from = "/*"

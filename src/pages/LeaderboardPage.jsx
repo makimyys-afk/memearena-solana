@@ -12,9 +12,14 @@ const LeaderboardPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const loadLeaderboard = () => {
-    const data = getLeaderboard()
-    setLeaderboard(data)
+  const loadLeaderboard = async () => {
+    try {
+      const data = await getLeaderboard()
+      setLeaderboard(data)
+    } catch (error) {
+      console.error('Error loading leaderboard:', error)
+      setLeaderboard([])
+    }
   }
 
   const getMedalIcon = (rank) => {
