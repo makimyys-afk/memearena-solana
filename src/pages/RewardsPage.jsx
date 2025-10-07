@@ -17,9 +17,9 @@ const RewardsPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const loadStats = () => {
-    const battles = getAllBattles()
-    const leaderboard = getLeaderboard()
+  const loadStats = async () => {
+    const battles = await getAllBattles()
+    const leaderboard = await getLeaderboard()
     
     // Calculate total volume (all wagers * 2)
     const totalVolume = battles.reduce((sum, b) => sum + (b.wager * 2), 0)
