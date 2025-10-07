@@ -27,7 +27,7 @@ const Navigation = () => {
               className="relative"
             >
               <img 
-                src="/src/assets/ui-assets/memearena_logo.png" 
+                src="/ui-assets/memearena_logo.png" 
                 alt="MemeArena" 
                 className="h-12 w-auto"
               />

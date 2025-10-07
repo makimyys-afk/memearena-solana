@@ -81,7 +81,7 @@ export const CreateBattleModal = ({ open, onClose, onCreate }) => {
                     }`}
                   >
                     <img 
-                      src={`/src/assets/icons/${fighter.symbol.toLowerCase()}_icon.png`} 
+                      src={`/icons/${fighter.symbol.toLowerCase()}_icon.png`} 
                       alt={fighter.symbol}
                       className="w-full h-auto mb-2"
                     />
@@ -101,7 +101,7 @@ export const CreateBattleModal = ({ open, onClose, onCreate }) => {
                 <p className="text-gray-300 mb-2">Selected Fighter:</p>
                 <div className="flex items-center gap-3">
                   <img 
-                    src={`/src/assets/icons/${selectedFighter.toLowerCase()}_icon.png`} 
+                    src={`/icons/${selectedFighter.toLowerCase()}_icon.png`} 
                     alt={selectedFighter}
                     className="w-12 h-12"
                   />

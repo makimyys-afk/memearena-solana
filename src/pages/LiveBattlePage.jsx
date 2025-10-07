@@ -31,7 +31,7 @@ const LiveBattlePage = () => {
     <div 
       className="min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: 'url(/src/assets/ui-assets/arena_battle_bg.png)',
+        backgroundImage: 'url(/ui-assets/arena_battle_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -58,7 +58,7 @@ const LiveBattlePage = () => {
                   className="text-center"
                 >
                   <img 
-                    src={`/src/assets/characters/${battle.playerA.fighter.toLowerCase()}_main.png`}
+                    src={`/characters/${battle.playerA.fighter.toLowerCase()}_main.png`}
                     alt={battle.playerA.fighter}
                     className="w-64 h-64 object-contain mb-4 drop-shadow-[0_0_30px_rgba(153,69,255,0.8)]"
                   />
@@ -74,7 +74,7 @@ const LiveBattlePage = () => {
                   className="text-center"
                 >
                   <img 
-                    src={`/src/assets/characters/${battle.playerB.fighter.toLowerCase()}_main.png`}
+                    src={`/characters/${battle.playerB.fighter.toLowerCase()}_main.png`}
                     alt={battle.playerB.fighter}
                     className="w-64 h-64 object-contain mb-4 drop-shadow-[0_0_30px_rgba(20,241,149,0.8)]"
                   />
@@ -94,7 +94,7 @@ const LiveBattlePage = () => {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <img 
-                  src="/src/assets/effects/energy_collision.png"
+                  src="/effects/energy_collision.png"
                   alt="Energy Collision"
                   className="w-full h-auto"
                 />
@@ -102,7 +102,7 @@ const LiveBattlePage = () => {
 
               <div className="flex items-center justify-between relative z-10">
                 <motion.img 
-                  src={`/src/assets/characters/${battle.playerA.fighter.toLowerCase()}_main.png`}
+                  src={`/characters/${battle.playerA.fighter.toLowerCase()}_main.png`}
                   alt={battle.playerA.fighter}
                   animate={{ 
                     x: [0, 50, 0],
@@ -113,7 +113,7 @@ const LiveBattlePage = () => {
                 />
 
                 <motion.img 
-                  src={`/src/assets/characters/${battle.playerB.fighter.toLowerCase()}_main.png`}
+                  src={`/characters/${battle.playerB.fighter.toLowerCase()}_main.png`}
                   alt={battle.playerB.fighter}
                   animate={{ 
                     x: [0, -50, 0],
@@ -132,7 +132,7 @@ const LiveBattlePage = () => {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <img 
-                  src="/src/assets/effects/effect_pump_it.png"
+                  src="/effects/effect_pump_it.png"
                   alt="Pump It"
                   className="w-96 h-auto"
                 />
@@ -150,7 +150,7 @@ const LiveBattlePage = () => {
               {/* Victory/Defeat Background */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <img 
-                  src={`/src/assets/effects/${winner ? 'victory_flash' : 'defeat_scene'}.png`}
+                  src={`/effects/${winner ? 'victory_flash' : 'defeat_scene'}.png`}
                   alt="Result"
                   className="w-full h-auto opacity-50"
                 />
@@ -166,7 +166,7 @@ const LiveBattlePage = () => {
                 </motion.h1>
 
                 <motion.img 
-                  src={`/src/assets/characters/${winner === 'A' ? battle.playerA.fighter.toLowerCase() : battle.playerB.fighter.toLowerCase()}_main.png`}
+                  src={`/characters/${winner === 'A' ? battle.playerA.fighter.toLowerCase() : battle.playerB.fighter.toLowerCase()}_main.png`}
                   alt="Winner"
                   animate={{ y: [0, -20, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
@@ -176,7 +176,7 @@ const LiveBattlePage = () => {
                 <div className="bg-black/80 backdrop-blur-sm border-2 border-yellow-500 rounded-2xl p-8 max-w-md mx-auto">
                   <p className="text-2xl text-gray-300 mb-4">Prize Won</p>
                   <div className="flex items-center justify-center gap-3 mb-6">
-                    <img src="/src/assets/ui-assets/sol_coin_icon.png" alt="SOL" className="w-12 h-12" />
+                    <img src="/ui-assets/sol_coin_icon.png" alt="SOL" className="w-12 h-12" />
                     <p className="text-5xl font-bold text-yellow-500">
                       {(battle.wager * 2 * 0.97).toFixed(2)} SOL
                     </p>
@@ -195,7 +195,7 @@ const LiveBattlePage = () => {
                   className="absolute inset-0 pointer-events-none"
                 >
                   <img 
-                    src="/src/assets/effects/token_scatter.png"
+                    src="/effects/token_scatter.png"
                     alt="Tokens"
                     className="w-full h-full object-cover"
                   />

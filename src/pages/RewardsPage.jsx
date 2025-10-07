@@ -27,7 +27,7 @@ const RewardsPage = () => {
         >
           <div className="relative">
             <img 
-              src="/src/assets/ui-assets/treasury_vault.png"
+              src="/ui-assets/treasury_vault.png"
               alt="Treasury Vault"
               className="w-full h-auto rounded-3xl"
             />

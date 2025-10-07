@@ -5,9 +5,9 @@ import { Sparkles, Zap, Trophy } from 'lucide-react'
 
 const HomePage = () => {
   const featuredFighters = [
-    { name: 'BONK', image: '/src/assets/characters/bonk_main.png' },
-    { name: 'WIF', image: '/src/assets/characters/wif_main.png' },
-    { name: 'POPCAT', image: '/src/assets/characters/popcat_main.png' },
+    { name: 'BONK', image: '/characters/bonk_main.png' },
+    { name: 'WIF', image: '/characters/wif_main.png' },
+    { name: 'POPCAT', image: '/characters/popcat_main.png' },
   ]
 
   return (
@@ -16,7 +16,7 @@ const HomePage = () => {
       <section 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: 'url(/src/assets/ui-assets/homepage_background.png)',
+          backgroundImage: 'url(/ui-assets/homepage_background.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -32,7 +32,7 @@ const HomePage = () => {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src="/src/assets/ui-assets/memearena_logo.png" 
+              src="/ui-assets/memearena_logo.png" 
               alt="MemeArena" 
               className="mx-auto w-full max-w-2xl mb-8 drop-shadow-[0_0_50px_rgba(153,69,255,0.8)]"
             />

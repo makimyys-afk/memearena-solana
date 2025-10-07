@@ -1,0 +1,364 @@
+{
+  "fighters": [
+    {
+      "id": 1,
+      "symbol": "BONK",
+      "name": "Bonk the Barklord",
+      "type": "Canine",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Bonk Blast",
+      "description": "The original Solana dog that started the meme revolution. Bonks enemies into submission with pure degen energy.",
+      "image": "bonk_main.png",
+      "icon": "bonk_icon.png",
+      "background": "bonk_bg.png",
+      "colorPalette": ["#FF6B00", "#FFB800", "#1A1A1A"]
+    },
+    {
+      "id": 2,
+      "symbol": "WIF",
+      "name": "WIF the Hat God",
+      "type": "Canine",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Hat Trick Aura",
+      "description": "A mystical dog with an iconic hat. The hat holds ancient meme powers that transcend all blockchains.",
+      "image": "wif_main.png",
+      "icon": "wif_icon.png",
+      "background": "wif_bg.png",
+      "colorPalette": ["#FF1493", "#9945FF", "#000000"]
+    },
+    {
+      "id": 3,
+      "symbol": "MYRO",
+      "name": "MYRO the Loyal",
+      "type": "Canine",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Diamond Paws",
+      "description": "Named after Raj's dog, this fighter never sells. True loyalty meets blockchain immortality.",
+      "image": "myro_main.png",
+      "icon": "myro_icon.png",
+      "background": "myro_bg.png",
+      "colorPalette": ["#4169E1", "#14F195", "#0A0A0A"]
+    },
+    {
+      "id": 4,
+      "symbol": "SAMO",
+      "name": "SAMO the Samoyed",
+      "type": "Canine",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Fluff Storm",
+      "description": "The fluffy OG of Solana. Soft on the outside, ruthless in the arena. Fluff power activated.",
+      "image": "samo_main.png",
+      "icon": "samo_icon.png",
+      "background": "samo_bg.png",
+      "colorPalette": ["#FFFFFF", "#9945FF", "#14F195"]
+    },
+    {
+      "id": 5,
+      "symbol": "POPCAT",
+      "name": "POPCAT the Clicker",
+      "type": "Cat",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Pop Explosion",
+      "description": "Every click is a victory. This cat pops enemies out of existence with viral energy.",
+      "image": "popcat_main.png",
+      "icon": "popcat_icon.png",
+      "background": "popcat_bg.png",
+      "colorPalette": ["#FFD700", "#FF69B4", "#1C1C1C"]
+    },
+    {
+      "id": 6,
+      "symbol": "BOME",
+      "name": "BOME the Book",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Meme Scripture",
+      "description": "The book of memes incarnate. Every page contains a new way to pump.",
+      "image": "bome_main.png",
+      "icon": "bome_icon.png",
+      "background": "bome_bg.png",
+      "colorPalette": ["#8B4513", "#FFD700", "#000000"]
+    },
+    {
+      "id": 7,
+      "symbol": "TAIKO",
+      "name": "TAIKO the Drummer",
+      "type": "AI Entity",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Rhythm Rush",
+      "description": "Beats the competition with algorithmic precision. Every drum hit is a calculated pump.",
+      "image": "taiko_main.png",
+      "icon": "taiko_icon.png",
+      "background": "taiko_bg.png",
+      "colorPalette": ["#FF0000", "#000000", "#FFFFFF"]
+    },
+    {
+      "id": 8,
+      "symbol": "TNSR",
+      "name": "TNSR the Tensor",
+      "type": "AI Entity",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Matrix Flow",
+      "description": "NFT marketplace energy condensed into pure battle form. Trades wins like rare JPEGs.",
+      "image": "tnsr_main.png",
+      "icon": "tnsr_icon.png",
+      "background": "tnsr_bg.png",
+      "colorPalette": ["#00FFFF", "#9945FF", "#0D0D0D"]
+    },
+    {
+      "id": 9,
+      "symbol": "HONEY",
+      "name": "HONEY the Sweet",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Golden Drip",
+      "description": "Sweet as honey, deadly as a rug pull. Attracts degens like bees to nectar.",
+      "image": "honey_main.png",
+      "icon": "honey_icon.png",
+      "background": "honey_bg.png",
+      "colorPalette": ["#FFD700", "#FF8C00", "#1A1A1A"]
+    },
+    {
+      "id": 10,
+      "symbol": "MEW",
+      "name": "MEW the Mystic",
+      "type": "Cat",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Psychic Pump",
+      "description": "A legendary cat with telekinetic powers. Sees the future of every trade.",
+      "image": "mew_main.png",
+      "icon": "mew_icon.png",
+      "background": "mew_bg.png",
+      "colorPalette": ["#FF1493", "#9945FF", "#000000"]
+    },
+    {
+      "id": 11,
+      "symbol": "FARTCOIN",
+      "name": "FARTCOIN the Gaseous",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Gas Attack",
+      "description": "The most ridiculous coin on Solana. Pumps with pure absurdity and chaos energy.",
+      "image": "fartcoin_main.png",
+      "icon": "fartcoin_icon.png",
+      "background": "fartcoin_bg.png",
+      "colorPalette": ["#00FF00", "#FFFF00", "#1C1C1C"]
+    },
+    {
+      "id": 12,
+      "symbol": "SC",
+      "name": "SC the Strategist",
+      "type": "AI Entity",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Smart Contract",
+      "description": "Pure code, pure strategy. Executes wins with mathematical certainty.",
+      "image": "sc_main.png",
+      "icon": "sc_icon.png",
+      "background": "sc_bg.png",
+      "colorPalette": ["#00FFFF", "#0000FF", "#000000"]
+    },
+    {
+      "id": 13,
+      "symbol": "CHONK",
+      "name": "CHONK the Absolute Unit",
+      "type": "Cat",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Chonky Slam",
+      "description": "Maximum chonk, maximum power. This unit crushes opponents with sheer mass.",
+      "image": "chonk_main.png",
+      "icon": "chonk_icon.png",
+      "background": "chonk_bg.png",
+      "colorPalette": ["#FFA500", "#FF6347", "#0A0A0A"]
+    },
+    {
+      "id": 14,
+      "symbol": "MOONCAT",
+      "name": "MOONCAT the Lunar",
+      "type": "Cat",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Moonbeam Strike",
+      "description": "Born on the moon, fights for the stars. Every battle is a trip to the cosmos.",
+      "image": "mooncat_main.png",
+      "icon": "mooncat_icon.png",
+      "background": "mooncat_bg.png",
+      "colorPalette": ["#FFFFFF", "#9945FF", "#000033"]
+    },
+    {
+      "id": 15,
+      "symbol": "GUAC",
+      "name": "GUAC the Green",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Avocado Aura",
+      "description": "Fresh, green, and ready to pump. The healthiest fighter in the arena.",
+      "image": "guac_main.png",
+      "icon": "guac_icon.png",
+      "background": "guac_bg.png",
+      "colorPalette": ["#00FF00", "#14F195", "#1A1A1A"]
+    },
+    {
+      "id": 16,
+      "symbol": "SLERF",
+      "name": "SLERF the Accidental",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Chaos Luck",
+      "description": "Born from a mistake, thrives in chaos. Accidentally wins every time.",
+      "image": "slerf_main.png",
+      "icon": "slerf_icon.png",
+      "background": "slerf_bg.png",
+      "colorPalette": ["#FF00FF", "#00FFFF", "#0D0D0D"]
+    },
+    {
+      "id": 17,
+      "symbol": "MOG",
+      "name": "MOG the Mogul",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Mogul Mode",
+      "description": "Business in the front, party in the back. Wins trades and battles alike.",
+      "image": "mog_main.png",
+      "icon": "mog_icon.png",
+      "background": "mog_bg.png",
+      "colorPalette": ["#FFD700", "#FF4500", "#000000"]
+    },
+    {
+      "id": 18,
+      "symbol": "TOSHI",
+      "name": "TOSHI the Wise",
+      "type": "AI Entity",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Satoshi's Blessing",
+      "description": "Named after the legend himself. Carries the wisdom of blockchain ancestors.",
+      "image": "toshi_main.png",
+      "icon": "toshi_icon.png",
+      "background": "toshi_bg.png",
+      "colorPalette": ["#F7931A", "#000000", "#FFFFFF"]
+    },
+    {
+      "id": 19,
+      "symbol": "HAMS",
+      "name": "HAMS the Hamster",
+      "type": "Canine",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Wheel of Fortune",
+      "description": "Small but mighty. Runs in circles until victory is achieved.",
+      "image": "hams_main.png",
+      "icon": "hams_icon.png",
+      "background": "hams_bg.png",
+      "colorPalette": ["#FFA07A", "#FF6347", "#1C1C1C"]
+    },
+    {
+      "id": 20,
+      "symbol": "CHIP",
+      "name": "CHIP the Chipper",
+      "type": "Token Lord",
+      "stats": {
+        "Power": 80,
+        "Speed": 80,
+        "Luck": 80,
+        "MemeEnergy": 80
+      },
+      "ability": "Chip Shot",
+      "description": "Stacks chips like a casino boss. Every bet is a calculated risk.",
+      "image": "chip_main.png",
+      "icon": "chip_icon.png",
+      "background": "chip_bg.png",
+      "colorPalette": ["#0000FF", "#00FFFF", "#000000"]
+    }
+  ]
+}

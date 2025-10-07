@@ -80,7 +80,7 @@ const ArenaPage = () => {
     <div 
       className="min-h-screen pt-24 pb-12"
       style={{
-        backgroundImage: 'url(/src/assets/ui-assets/arena_battle_bg.png)',
+        backgroundImage: 'url(/ui-assets/arena_battle_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -181,7 +181,7 @@ const ArenaPage = () => {
                     <p className="text-[#14F195] text-sm">{battle.fighterA}</p>
                   </div>
                   <img 
-                    src={`/src/assets/icons/${battle.fighterA.toLowerCase()}_icon.png`}
+                    src={`/icons/${battle.fighterA.toLowerCase()}_icon.png`}
                     alt={battle.fighterA}
                     className="w-12 h-12"
                   />
@@ -200,7 +200,7 @@ const ArenaPage = () => {
                 {battle.playerB ? (
                   <div className="flex items-center gap-4 flex-1 justify-end">
                     <img 
-                      src={`/src/assets/icons/${battle.fighterB.toLowerCase()}_icon.png`}
+                      src={`/icons/${battle.fighterB.toLowerCase()}_icon.png`}
                       alt={battle.fighterB}
                       className="w-12 h-12"
                     />
@@ -260,7 +260,7 @@ const ArenaPage = () => {
             className="relative rounded-2xl overflow-hidden cursor-pointer group"
           >
             <img 
-              src="/src/assets/ui-assets/banner_airdrop_mode.png"
+              src="/ui-assets/banner_airdrop_mode.png"
               alt="Airdrop Mode"
               className="w-full h-64 object-cover"
             />
@@ -282,7 +282,7 @@ const ArenaPage = () => {
             className="relative rounded-2xl overflow-hidden cursor-pointer group"
           >
             <img 
-              src="/src/assets/ui-assets/banner_rug_war_mode.png"
+              src="/ui-assets/banner_rug_war_mode.png"
               alt="Rug War Mode"
               className="w-full h-64 object-cover"
             />

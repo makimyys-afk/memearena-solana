@@ -46,7 +46,7 @@ const MemeDexPage = () => {
               <div 
                 className="relative rounded-2xl overflow-hidden border-2 border-[#9945FF]/30 hover:border-[#14F195] transition-all"
                 style={{
-                  backgroundImage: `url(/src/assets/backgrounds/${fighter.symbol.toLowerCase()}_bg.png)`,
+                  backgroundImage: `url(/backgrounds/${fighter.symbol.toLowerCase()}_bg.png)`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}
@@ -59,7 +59,7 @@ const MemeDexPage = () => {
                   {/* Fighter Image */}
                   <div className="mb-4">
                     <img 
-                      src={`/src/assets/characters/${fighter.symbol.toLowerCase()}_main.png`}
+                      src={`/characters/${fighter.symbol.toLowerCase()}_main.png`}
                       alt={fighter.name}
                       className="w-full h-48 object-contain drop-shadow-[0_0_20px_rgba(153,69,255,0.6)]"
                     />
@@ -119,7 +119,7 @@ const MemeDexPage = () => {
                 {/* Image */}
                 <div className="flex-1">
                   <img 
-                    src={`/src/assets/characters/${selectedFighter.symbol.toLowerCase()}_main.png`}
+                    src={`/characters/${selectedFighter.symbol.toLowerCase()}_main.png`}
                     alt={selectedFighter.name}
                     className="w-full h-auto drop-shadow-[0_0_30px_rgba(153,69,255,0.8)]"
                   />

@@ -1,0 +1,39 @@
+[
+  {
+    "rank": 1,
+    "wallet": "So1anaKing",
+    "wins": 12,
+    "losses": 5,
+    "earnedSol": 6.5
+  },
+  {
+    "rank": 2,
+    "wallet": "WifDoge",
+    "wins": 10,
+    "losses": 8,
+    "earnedSol": 4.2
+  },
+  {
+    "rank": 3,
+    "wallet": "PopcatLover",
+    "wins": 9,
+    "losses": 3,
+    "earnedSol": 5.0
+  },
+  {
+    "rank": 4,
+    "wallet": "BonkMaster",
+    "wins": 8
+
+,
+    "losses": 7,
+    "earnedSol": 3.8
+  },
+  {
+    "rank": 5,
+    "wallet": "MyroHODLer",
+    "wins": 7,
+    "losses": 6,
+    "earnedSol": 3.1
+  }
+]

@@ -7,21 +7,21 @@ const ArenaPage = () => {
   const [activeBattles] = useState([
     {
       id: 1,
-      playerA: { wallet: 'So1ana...King', fighter: 'BONK', avatar: '/src/assets/ui-assets/player_avatar_1.png' },
+      playerA: { wallet: 'So1ana...King', fighter: 'BONK', avatar: '/ui-assets/player_avatar_1.png' },
       playerB: null,
       wager: 0.5,
       status: 'waiting',
     },
     {
       id: 2,
-      playerA: { wallet: 'Wif...Doge', fighter: 'WIF', avatar: '/src/assets/ui-assets/player_avatar_2.png' },
-      playerB: { wallet: 'Popcat...Lover', fighter: 'POPCAT', avatar: '/src/assets/ui-assets/player_avatar_3.png' },
+      playerA: { wallet: 'Wif...Doge', fighter: 'WIF', avatar: '/ui-assets/player_avatar_2.png' },
+      playerB: { wallet: 'Popcat...Lover', fighter: 'POPCAT', avatar: '/ui-assets/player_avatar_3.png' },
       wager: 1.0,
       status: 'ready',
     },
     {
       id: 3,
-      playerA: { wallet: 'Myro...HODL', fighter: 'MYRO', avatar: '/src/assets/ui-assets/player_avatar_1.png' },
+      playerA: { wallet: 'Myro...HODL', fighter: 'MYRO', avatar: '/ui-assets/player_avatar_1.png' },
       playerB: null,
       wager: 0.25,
       status: 'waiting',
@@ -32,7 +32,7 @@ const ArenaPage = () => {
     <div 
       className="min-h-screen pt-24 pb-12"
       style={{
-        backgroundImage: 'url(/src/assets/ui-assets/arena_battle_bg.png)',
+        backgroundImage: 'url(/ui-assets/arena_battle_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -118,7 +118,7 @@ const ArenaPage = () => {
                     <p className="text-[#14F195] text-sm">{battle.playerA.fighter}</p>
                   </div>
                   <img 
-                    src={`/src/assets/icons/${battle.playerA.fighter.toLowerCase()}_icon.png`}
+                    src={`/icons/${battle.playerA.fighter.toLowerCase()}_icon.png`}
                     alt={battle.playerA.fighter}
                     className="w-12 h-12"
                   />
@@ -137,7 +137,7 @@ const ArenaPage = () => {
                 {battle.playerB ? (
                   <div className="flex items-center gap-4 flex-1 justify-end">
                     <img 
-                      src={`/src/assets/icons/${battle.playerB.fighter.toLowerCase()}_icon.png`}
+                      src={`/icons/${battle.playerB.fighter.toLowerCase()}_icon.png`}
                       alt={battle.playerB.fighter}
                       className="w-12 h-12"
                     />
@@ -188,7 +188,7 @@ const ArenaPage = () => {
             className="relative rounded-2xl overflow-hidden cursor-pointer group"
           >
             <img 
-              src="/src/assets/ui-assets/banner_airdrop_mode.png"
+              src="/ui-assets/banner_airdrop_mode.png"
               alt="Airdrop Mode"
               className="w-full h-64 object-cover"
             />
@@ -210,7 +210,7 @@ const ArenaPage = () => {
             className="relative rounded-2xl overflow-hidden cursor-pointer group"
           >
             <img 
-              src="/src/assets/ui-assets/banner_rug_war_mode.png"
+              src="/ui-assets/banner_rug_war_mode.png"
               alt="Rug War Mode"
               className="w-full h-64 object-cover"
             />

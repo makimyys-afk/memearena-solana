@@ -4,9 +4,9 @@ import leaderboardData from '../assets/leaderboard-sample.json'
 
 const LeaderboardPage = () => {
   const getMedalIcon = (rank) => {
-    if (rank === 1) return '/src/assets/ui-assets/medal_gold.png'
-    if (rank === 2) return '/src/assets/ui-assets/medal_silver.png'
-    if (rank === 3) return '/src/assets/ui-assets/medal_bronze.png'
+    if (rank === 1) return '/ui-assets/medal_gold.png'
+    if (rank === 2) return '/ui-assets/medal_silver.png'
+    if (rank === 3) return '/ui-assets/medal_bronze.png'
     return null
   }
 
@@ -21,7 +21,7 @@ const LeaderboardPage = () => {
     <div 
       className="min-h-screen pt-24 pb-12"
       style={{
-        backgroundImage: 'url(/src/assets/ui-assets/leaderboard_bg.png)',
+        backgroundImage: 'url(/ui-assets/leaderboard_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -94,7 +94,7 @@ const LeaderboardPage = () => {
                       <div className="flex justify-between items-center pt-2 border-t border-gray-700">
                         <span className="text-gray-400">Earned</span>
                         <span className="text-yellow-500 font-bold flex items-center gap-1">
-                          <img src="/src/assets/ui-assets/sol_coin_icon.png" alt="SOL" className="w-4 h-4" />
+                          <img src="/ui-assets/sol_coin_icon.png" alt="SOL" className="w-4 h-4" />
                           {actualPlayer.earnedSol} SOL
                         </span>
                       </div>
@@ -170,7 +170,7 @@ const LeaderboardPage = () => {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <img src="/src/assets/ui-assets/sol_coin_icon.png" alt="SOL" className="w-5 h-5" />
+                        <img src="/ui-assets/sol_coin_icon.png" alt="SOL" className="w-5 h-5" />
                         <span className="text-yellow-500 font-bold">{player.earnedSol}</span>
                       </div>
                     </td>
@@ -214,7 +214,7 @@ const LeaderboardPage = () => {
             transition={{ delay: 0.2 }}
             className="bg-black/60 backdrop-blur-sm border-2 border-[#9945FF]/30 rounded-2xl p-6 text-center"
           >
-            <img src="/src/assets/ui-assets/sol_coin_icon.png" alt="SOL" className="w-12 h-12 mx-auto mb-4" />
+            <img src="/ui-assets/sol_coin_icon.png" alt="SOL" className="w-12 h-12 mx-auto mb-4" />
             <h3 className="text-3xl font-bold text-white mb-2">
               {leaderboardData.reduce((sum, p) => sum + p.earnedSol, 0).toFixed(1)} SOL
             </h3>
