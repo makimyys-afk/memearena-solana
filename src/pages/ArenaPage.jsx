@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { Button } from '@/components/ui/button'
@@ -14,23 +13,27 @@ const ArenaPage = () => {
   
   const [battles, setBattles] = useState([])
   const [showCreateModal, setShowCreateModal] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   // Load battles
   useEffect(() => {
     loadBattles()
-    const interval = setInterval(loadBattles, 3000) // Refresh every 3 seconds
+    const interval = setInterval(loadBattles, 3000)
     return () => clearInterval(interval)
   }, [])
 
   const loadBattles = async () => {
     try {
+      setError(null)
       const allBattles = await getAllBattles()
-      // Show only waiting and active battles
       setBattles(allBattles.filter(b => b.status === 'waiting' || b.status === 'active'))
     } catch (error) {
       console.error('Error loading battles:', error)
+      setError('Failed to load battles. Please try again.')
       setBattles([])
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -42,9 +45,10 @@ const ArenaPage = () => {
 
     setLoading(true)
     try {
-      const battle = await createBattle(connection, { publicKey }, wager, fighter)
+      const battle = await createBattle({ publicKey }, fighter, wager)
       alert(`Battle created! ID: ${battle.id}`)
-      loadBattles()
+      await loadBattles()
+      setShowCreateModal(false)
     } catch (error) {
       console.error(error)
       alert('Failed to create battle: ' + error.message)
@@ -58,15 +62,13 @@ const ArenaPage = () => {
       return
     }
 
-    // Simple fighter selection for demo
-    const fighter = prompt('Enter fighter symbol (e.g., BONK, WIF, POPCAT):')
+    const fighter = prompt('Enter your fighter name (e.g., WIF, MYRO):')
     if (!fighter) return
 
     setLoading(true)
     try {
-      await joinBattle(connection, { publicKey }, battle.id, fighter, battle.wager)
+      await joinBattle(battle.id, { publicKey }, fighter)
       alert('Joined battle! Redirecting to live battle...')
-      loadBattles()
       navigate(`/battle/${battle.id}`)
     } catch (error) {
       console.error(error)
@@ -78,14 +80,14 @@ const ArenaPage = () => {
   const stats = {
     activeBattles: battles.length,
     playersOnline: battles.length * 2,
-    totalPrize: battles.reduce((sum, b) => sum + (b.wager * 2 * 0.97), 0).toFixed(2),
+    totalPrizePool: battles.reduce((sum, b) => sum + (b.wager * 2), 0).toFixed(2),
   }
 
   return (
     <div 
       className="min-h-screen pt-24 pb-12"
       style={{
-        backgroundImage: 'url(/ui-assets/arena_battle_bg.png)',
+        backgroundImage: 'url(/ui-assets/arena_background.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -95,221 +97,215 @@ const ArenaPage = () => {
       
       <div className="relative container mx-auto px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent">
+        <div className="text-center mb-12">
+          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#9945FF] bg-clip-text text-transparent">
             Battle Arena
           </h1>
-          <p className="text-xl text-gray-300 mb-8">
+          <p className="text-xl text-gray-300">
             Create or join battles. Winner takes all!
           </p>
-
-          <Button 
-            size="lg"
-            onClick={() => setShowCreateModal(true)}
-            disabled={!connected || loading}
-            className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 font-bold text-lg px-8 py-6 rounded-xl shadow-[0_0_30px_rgba(153,69,255,0.6)] disabled:opacity-50"
-          >
-            <Plus className="w-6 h-6 mr-2" />
-            {connected ? 'Create New Battle' : 'Connect Wallet to Create Battle'}
-          </Button>
-        </motion.div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {[
-            { icon: Swords, label: 'Active Battles', value: stats.activeBattles, color: 'from-[#9945FF] to-purple-600' },
-            { icon: Users, label: 'Players Online', value: stats.playersOnline, color: 'from-[#14F195] to-green-600' },
-            { icon: Trophy, label: 'Total Prize Pool', value: `${stats.totalPrize} SOL`, color: 'from-yellow-500 to-orange-600' },
-          ].map((stat, index) => {
-            const Icon = stat.icon
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-black/60 backdrop-blur-sm border-2 border-[#9945FF]/30 rounded-2xl p-6"
-              >
-                <div className="flex items-center gap-4">
-                  <div className={`p-4 rounded-xl bg-gradient-to-br ${stat.color}`}>
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">{stat.label}</p>
-                    <p className="text-3xl font-bold text-white">{stat.value}</p>
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
         </div>
 
-        {/* Active Battles */}
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            {battles.length > 0 ? 'Active Battles' : 'No Active Battles'}
-          </h2>
+        {/* Create Battle Button */}
+        <div className="flex justify-center mb-8">
+          {connected ? (
+            <Button
+              onClick={() => setShowCreateModal(true)}
+              disabled={loading}
+              className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 text-white px-8 py-6 text-lg font-bold"
+            >
+              <Plus className="mr-2" />
+              Create Battle
+            </Button>
+          ) : (
+            <Button
+              disabled
+              className="bg-gray-700 text-gray-400 px-8 py-6 text-lg font-bold cursor-not-allowed"
+            >
+              Connect Wallet to Create Battle
+            </Button>
+          )}
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-gradient-to-br from-purple-900/50 to-black/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-purple-500/20 p-4 rounded-xl">
+                <Swords className="w-8 h-8 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm">Active Battles</p>
+                <p className="text-3xl font-bold text-white">{stats.activeBattles}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-900/50 to-black/50 backdrop-blur-sm border border-green-500/30 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-green-500/20 p-4 rounded-xl">
+                <Users className="w-8 h-8 text-green-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm">Players Online</p>
+                <p className="text-3xl font-bold text-white">{stats.playersOnline}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-orange-900/50 to-black/50 backdrop-blur-sm border border-orange-500/30 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-orange-500/20 p-4 rounded-xl">
+                <Trophy className="w-8 h-8 text-orange-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm">Total Prize Pool</p>
+                <p className="text-3xl font-bold text-white">{stats.totalPrizePool} SOL</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Battles List */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-white mb-6">No Active Battles</h2>
           
-          {battles.length === 0 && (
-            <div className="bg-black/60 backdrop-blur-sm border-2 border-[#9945FF]/30 rounded-2xl p-12 text-center">
-              <p className="text-gray-400 text-lg mb-4">No battles available. Be the first to create one!</p>
-              <Button 
+          {loading && battles.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+              <p className="text-gray-400 mt-4">Loading battles...</p>
+            </div>
+          ) : error ? (
+            <div className="bg-red-900/20 border border-red-500/30 rounded-2xl p-8 text-center">
+              <p className="text-red-400 mb-4">{error}</p>
+              <Button onClick={loadBattles} className="bg-red-500 hover:bg-red-600">
+                Retry
+              </Button>
+            </div>
+          ) : battles.length === 0 ? (
+            <div className="bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm border border-gray-700/30 rounded-2xl p-12 text-center">
+              <Swords className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+              <p className="text-gray-400 text-lg mb-6">No battles available. Be the first to create one!</p>
+              <Button
                 onClick={() => setShowCreateModal(true)}
                 disabled={!connected}
-                className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 font-bold"
+                className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 text-white px-6 py-3"
               >
                 Create Battle
               </Button>
             </div>
-          )}
-
-          {battles.map((battle, index) => (
-            <motion.div
-              key={battle.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-black/60 backdrop-blur-sm border-2 border-[#9945FF]/30 hover:border-[#14F195] rounded-2xl p-6 transition-all"
-            >
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                {/* Player A */}
-                <div className="flex items-center gap-4 flex-1">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#9945FF] to-purple-600 flex items-center justify-center text-white font-bold text-2xl">
-                    {battle.playerA.slice(0, 2)}
-                  </div>
-                  <div>
-                    <p className="text-white font-bold">{battle.playerA.slice(0, 8)}...{battle.playerA.slice(-4)}</p>
-                    <p className="text-[#14F195] text-sm">{battle.fighterA}</p>
-                  </div>
-                  <img 
-                    src={`/icons/${battle.fighterA.toLowerCase()}_icon.png`}
-                    alt={battle.fighterA}
-                    className="w-12 h-12"
-                  />
-                </div>
-
-                {/* VS / Wager */}
-                <div className="text-center">
-                  <div className="bg-gradient-to-r from-[#9945FF] to-[#14F195] text-white font-bold px-6 py-2 rounded-full mb-2">
-                    VS
-                  </div>
-                  <p className="text-gray-300 text-sm">Wager: <span className="text-yellow-500 font-bold">{battle.wager} SOL</span></p>
-                  <p className="text-gray-400 text-xs">Prize: {(battle.wager * 2 * 0.97).toFixed(3)} SOL</p>
-                </div>
-
-                {/* Player B or Join Button */}
-                {battle.playerB ? (
-                  <div className="flex items-center gap-4 flex-1 justify-end">
-                    <img 
-                      src={`/icons/${battle.fighterB.toLowerCase()}_icon.png`}
-                      alt={battle.fighterB}
-                      className="w-12 h-12"
-                    />
-                    <div className="text-right">
-                      <p className="text-white font-bold">{battle.playerB.slice(0, 8)}...{battle.playerB.slice(-4)}</p>
-                      <p className="text-[#14F195] text-sm">{battle.fighterB}</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {battles.map((battle) => (
+                <div
+                  key={battle.id}
+                  className="bg-gradient-to-br from-purple-900/30 to-black/30 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-6 hover:border-purple-400/50 transition-all"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <p className="text-sm text-gray-400">Wager</p>
+                      <p className="text-2xl font-bold text-white">{battle.wager} SOL</p>
                     </div>
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#14F195] to-green-600 flex items-center justify-center text-white font-bold text-2xl">
-                      {battle.playerB.slice(0, 2)}
+                    <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      battle.status === 'waiting' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'
+                    }`}>
+                      {battle.status === 'waiting' ? 'Open' : 'In Progress'}
                     </div>
                   </div>
-                ) : (
-                  <div className="flex-1 flex justify-end">
-                    <div className="text-center">
-                      <div className="w-16 h-16 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center mb-2 mx-auto">
-                        <Users className="w-8 h-8 text-gray-600" />
+
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={`/icons/${battle.fighterA.toLowerCase()}_icon.png`}
+                        alt={battle.fighterA}
+                        className="w-12 h-12 rounded-full border-2 border-purple-500"
+                      />
+                      <div>
+                        <p className="text-white font-semibold">{battle.fighterA}</p>
+                        <p className="text-xs text-gray-400">{battle.creatorWallet?.slice(0, 8)}...</p>
                       </div>
-                      <p className="text-gray-500 text-sm mb-3">Waiting...</p>
                     </div>
-                  </div>
-                )}
 
-                {/* Action Button */}
-                <div className="md:ml-4">
-                  {battle.status === 'waiting' && battle.playerA !== publicKey?.toString() ? (
-                    <Button 
+                    {battle.fighterB && (
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={`/icons/${battle.fighterB.toLowerCase()}_icon.png`}
+                          alt={battle.fighterB}
+                          className="w-12 h-12 rounded-full border-2 border-green-500"
+                        />
+                        <div>
+                          <p className="text-white font-semibold">{battle.fighterB}</p>
+                          <p className="text-xs text-gray-400">{battle.opponentWallet?.slice(0, 8)}...</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {battle.status === 'waiting' && (
+                    <Button
                       onClick={() => handleJoinBattle(battle)}
                       disabled={!connected || loading}
-                      className="bg-[#14F195] hover:bg-[#14F195]/80 text-black font-bold"
+                      className="w-full bg-gradient-to-r from-[#14F195] to-[#9945FF] hover:opacity-90 text-white font-bold"
                     >
                       Join Battle
                     </Button>
-                  ) : battle.status === 'active' ? (
-                    <Button 
+                  )}
+
+                  {battle.status === 'active' && (
+                    <Button
                       onClick={() => navigate(`/battle/${battle.id}`)}
-                      className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90 font-bold"
+                      className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white font-bold"
                     >
-                      Watch Live
-                    </Button>
-                  ) : (
-                    <Button disabled className="opacity-50">
-                      Your Battle
+                      Watch Battle
                     </Button>
                   )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Game Modes */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden cursor-pointer group"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div 
+            className="relative rounded-2xl overflow-hidden group cursor-pointer"
+            style={{
+              backgroundImage: 'url(/ui-assets/banner_airdrop_mode.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              height: '200px',
+            }}
           >
-            <img 
-              src="/ui-assets/banner_airdrop_mode.png"
-              alt="Airdrop Mode"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end p-6">
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-2">Airdrop Mode</h3>
-                <p className="text-gray-300">Battle royale with multiple players</p>
-                <Button className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                  Coming Soon
-                </Button>
-              </div>
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all" />
+            <div className="relative h-full flex items-center justify-center">
+              <h3 className="text-3xl font-bold text-white">Airdrop Mode</h3>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden cursor-pointer group"
+          <div 
+            className="relative rounded-2xl overflow-hidden group cursor-pointer"
+            style={{
+              backgroundImage: 'url(/ui-assets/banner_rug_war_mode.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              height: '200px',
+            }}
           >
-            <img 
-              src="/ui-assets/banner_rug_war_mode.png"
-              alt="Rug War Mode"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end p-6">
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-2">Rug War Mode</h3>
-                <p className="text-gray-300">Team-based battles with special rules</p>
-                <Button className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold">
-                  Coming Soon
-                </Button>
-              </div>
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all" />
+            <div className="relative h-full flex items-center justify-center">
+              <h3 className="text-3xl font-bold text-white">Rug War Mode</h3>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Create Battle Modal */}
-      <CreateBattleModal 
-        open={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-        onCreate={handleCreateBattle}
-      />
+      {showCreateModal && (
+        <CreateBattleModal
+          onClose={() => setShowCreateModal(false)}
+          onCreate={handleCreateBattle}
+        />
+      )}
     </div>
   )
 }
