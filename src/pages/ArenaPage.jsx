@@ -119,8 +119,10 @@ const ArenaPage = () => {
             </Button>
           ) : (
             <Button
-              disabled
-              className="bg-gray-700 text-gray-400 px-8 py-6 text-lg font-bold cursor-not-allowed"
+              onClick={() => {
+                alert('Please connect your wallet using the "Select Wallet" button in the top right corner!')
+              }}
+              className="bg-gradient-to-r from-purple-600 to-purple-800 hover:opacity-90 text-white px-8 py-6 text-lg font-bold cursor-pointer"
             >
               Connect Wallet to Create Battle
             </Button>
@@ -300,12 +302,11 @@ const ArenaPage = () => {
       </div>
 
       {/* Create Battle Modal */}
-      {showCreateModal && (
-        <CreateBattleModal
-          onClose={() => setShowCreateModal(false)}
-          onCreate={handleCreateBattle}
-        />
-      )}
+      <CreateBattleModal
+        open={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onCreate={handleCreateBattle}
+      />
     </div>
   )
 }
