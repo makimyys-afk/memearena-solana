@@ -37,24 +37,41 @@ const ArenaPage = () => {
     }
   }
 
-  const handleCreateBattle = async (wager, fighter) => {
-    if (!connected) {
-      alert('Please connect your wallet first!')
-      return
-    }
+ const handleCreateBattle = async () => {
+  console.log('handleCreateBattle called')
+  
+  if (!connected) {
+    alert('Please connect your wallet first!')
+    return
+  }
 
-    setLoading(true)
-    try {
-      const battle = await createBattle({ publicKey }, fighter, wager)
-      alert(`Battle created! ID: ${battle.id}`)
-      await loadBattles()
-      setShowCreateModal(false)
-    } catch (error) {
-      console.error(error)
-      alert('Failed to create battle: ' + error.message)
-    }
+  if (!selectedFighter) {
+    alert('Please select a fighter!')
+    return
+  }
+
+  if (wager < 0.01) {
+    alert('Minimum wager is 0.01 SOL')
+    return
+  }
+
+  setLoading(true)
+  try {
+    console.log('Creating battle:', { selectedFighter, wager, publicKey: publicKey.toString() })
+    const battle = await createBattle({ publicKey }, selectedFighter, wager)
+    console.log('Battle created successfully:', battle)
+    alert(`Battle created successfully! ID: ${battle.id}`)
+    await loadBattles()
+    setShowCreateForm(false)
+    setSelectedFighter('')
+    setWager(0.1)
+  } catch (error) {
+    console.error('Error in handleCreateBattle:', error)
+    alert('Failed to create battle: ' + (error.message || 'Unknown error'))
+  } finally {
     setLoading(false)
   }
+}
 
   const handleJoinBattle = async (battle) => {
     if (!connected) {
